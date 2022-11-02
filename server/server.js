@@ -1,14 +1,14 @@
 const express = require('express')
-const path = require('path')
-
+const cors = require('cors')
+require('dotenv').config()
 const app = express()
 
-app.length('/', function(req, res) {
-    res.sendFile(path.join(__dirname, '../index.html'))
-})
+app.use(express.json())
+app.use(cors())
 
-const port = process.env.PORT || 4005
+const {home} = require("./controllers/pageCtrl.js")
+app.get("/", home)
 
-app.listen(port, () => {
-    console.log(`Listening on port ${PORT}`)
-})
+const {PORT} = process.env
+
+app.listen(PORT, () => console.log(`Tis listens on the PORT of our lord ${PORT}`))
